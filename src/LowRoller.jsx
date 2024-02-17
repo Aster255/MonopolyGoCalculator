@@ -25,6 +25,10 @@ export const LowRoller = () => {
     setTargets(newTargets);
   };
 
+  const setTargetChange = (a = []) => {
+    setTargets([...a]);
+  };
+
   const runMainFunction = () => {
     const firstmove = {
       x1: multipliers.x1[0],
@@ -172,6 +176,28 @@ export const LowRoller = () => {
               value={targets.join(", ")}
               onChange={handleTargetsChange}
             />
+          </div>
+          <div>
+            <div>
+              <button onClick={() => setTargetChange([16, 26, 32, 40])}>
+                Electric Company
+              </button>
+            </div>
+            <div>
+              <button onClick={() => setTargetChange([10, 16, 24, 40])}>
+                Water Works
+              </button>
+            </div>
+            <div>
+              <button onClick={() => setTargetChange([6, 14, 30, 40])}>
+                Luxury Tax
+              </button>
+            </div>
+            <div>
+              <button onClick={() => setTargetChange([8, 24, 34, 40])}>
+                Income Tax
+              </button>
+            </div>
           </div>
         </div>
 
