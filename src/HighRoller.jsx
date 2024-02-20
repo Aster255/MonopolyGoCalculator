@@ -11,6 +11,7 @@ export const HighRoller = () => {
   const [x1000, setx1000] = useState([9, 9, 9, 9]);
   const [targets, setTargets] = useState([10, 20, 30, 40]);
   const [results, setResults] = useState([]);
+  const [offset, setOffset] = useState(0);
 
   const handleMultiplierChange = (multiplier, index, value) => {
     const updatedMultipliers = { ...multipliers };
@@ -89,6 +90,16 @@ export const HighRoller = () => {
   const setTargetChange = (a = []) => {
     setTargets([...a]);
   };
+
+  const useOffset = () => {
+    setTargetChange(
+      targets
+        .map((e) => e - offset)
+        .map((e) => (e <= 0 ? 40 + e : e))
+        .sort((a, b) => a - b)
+    );
+  };
+
   useEffect(() => {
     runMainFunction();
   }, [multipliers, x1000, targets]);
@@ -197,6 +208,15 @@ export const HighRoller = () => {
                 Income Tax
               </button>
             </div>
+          </div>
+
+          <div>
+            <input
+              type="number"
+              value={offset}
+              onChange={(e) => setOffset(e.target.value)}
+            />
+            <button onClick={useOffset}>USE OFFSET</button>
           </div>
         </div>
 

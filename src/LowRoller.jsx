@@ -11,6 +11,7 @@ export const LowRoller = () => {
   const [x100, setX100] = useState([9, 9, 9, 9]);
   const [targets, setTargets] = useState([10, 20, 30, 40]);
   const [results, setResults] = useState([]);
+  const [offset, setOffset] = useState(0);
 
   const handleMultiplierChange = (multiplier, index, value) => {
     const updatedMultipliers = { ...multipliers };
@@ -88,6 +89,25 @@ export const LowRoller = () => {
     }
 
     setResults(newResults);
+  };
+
+  const useOffset = () => {
+    setTargetChange(
+      targets
+        .map((e) => e - offset)
+        .map((e) => (e <= 0 ? 40 + e : e))
+        .sort((a, b) => a - b)
+    );
+    setOffset(0);
+  };
+
+  const usePopandOffset = () => {
+    const obj = [...targets]
+      .map((e) => e - offset)
+      .map((e) => (e <= 0 ? 40 + e : e))
+      .sort((a, b) => a - b);
+    obj.pop();
+    setTargetChange(obj);
   };
 
   useEffect(() => {
@@ -198,6 +218,17 @@ export const LowRoller = () => {
                 Income Tax
               </button>
             </div>
+          </div>
+
+          <div>
+            <input
+              type="number"
+              value={offset}
+              onChange={(e) => setOffset(e.target.value)}
+            />
+            <button onClick={useOffset}>USE OFFSET</button>
+            <br />
+            <button onClick={usePopandOffset}>USE POP</button>
           </div>
         </div>
 
